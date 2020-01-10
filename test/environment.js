@@ -1,6 +1,6 @@
 import S3rver from 's3rver';
-import request from 'supertest';
 import express from 'express';
+import request from 'supertest';
 import initS3Trebuchet from '../lib/';
 import AWS from 'aws-sdk';
 
@@ -18,10 +18,8 @@ const s3 = new AWS.S3(s3rverConfiguration);
 const app = express();
 const s3Trebuchet = initS3Trebuchet(s3rverConfiguration);
 app.put('/test-multipart-params', s3Trebuchet.multipartParamsHandler);
-app.put(
-  '/test-validate/:fileKey',
-  s3Trebuchet.fileValidationHandler('fileKey')
-);
+app.put('/test-validate/:fileKey', s3Trebuchet.fileValidationHandler('fileKey'));
+app.get('/test-get-file/:fileKey', s3Trebuchet.goToTemporaryUrlForFileHandler('fileKey'));
 app.use((err, req, res, next) => {
   return res.status(err.output.statusCode).json(err.output.payload);
 });
@@ -39,6 +37,9 @@ const s3Client = {
       ServerSideEncryption: 'AES256',
     };
     return s3.putObject(params).promise();
+  },
+  getBucketUrl: () => {
+    return `${s3rverConfiguration.endpoint}/${s3rverConfiguration.bucket}`;
   },
 };
 

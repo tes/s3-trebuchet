@@ -1,5 +1,7 @@
 import uuid from 'uuid/v4';
 import { expect } from 'chai';
+import path from 'path';
+import superagent from 'superagent';
 import { request, s3Client } from './environment';
 
 describe('File upload', () => {
@@ -21,9 +23,39 @@ describe('File upload', () => {
       });
   });
 
+  it('should be able to upload a file with the generated policy', async () => {
+    const { body } = await request.put('/test-multipart-params');
+    const res = await superagent
+      .post(s3Client.getBucketUrl())
+      .attach('file', path.join(__dirname, 'test.txt'))
+      .field(body);
+    expect(res.status).to.equal(201);
+  });
+
+  describe('get uploaded file', () => {
+    it('should redirect for a valid file', async () => {
+      const fileKey = `upload-test-${uuid()}`;
+      await s3Client.putObject(fileKey, 'Here is the body of the file!');
+      const {
+        headers: { location },
+      } = await request.get(`/test-get-file/${fileKey}`).expect(302);
+      const res = await superagent(location);
+      console.log(res.statusCode);
+    });
+
+    it('should 404 for a non existing fileKey', async () => {
+      const {
+        headers: { location },
+      } = await request.get(`/test-get-file/null`).expect(302);
+      return superagent(location).catch(({ response: { statusCode } }) =>
+        expect(statusCode).to.equal(404)
+      );
+    });
+  });
+
   describe('validate uploaded file', () => {
     describe('for a valid file', () => {
-      const fileKey = `candidate-upload-test-${uuid()}`;
+      const fileKey = `upload-test-${uuid()}`;
       after(async () => {
         await s3Client.deleteObject(fileKey);
       });
@@ -41,7 +73,7 @@ describe('File upload', () => {
     });
 
     describe('for an invalid file', () => {
-      const fileKey = `candidate-upload-test-${uuid()}`;
+      const fileKey = `upload-test-${uuid()}`;
       after(async () => {
         await s3Client.deleteObject(fileKey);
       });
