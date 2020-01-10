@@ -1,0 +1,40 @@
+{
+  "name": "s3-trebuchet",
+  "version": "1.0.0",
+  "description": "Tiny lib to validate and get temporary urls for s3 uploads",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/register": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "bluebird": "^3.7.2",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "express": "^4.17.1",
+    "mocha": "^7.0.0",
+    "prettier": "1.19.1",
+    "s3rver": "^3.5.0",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "@hapi/boom": "^9.0.0",
+    "@hapi/joi": "^17.0.0",
+    "aws-sdk": "^2.598.0",
+    "crypto": "^1.0.1",
+    "debug": "^4.1.1",
+    "uuid": "^3.3.3"
+  },
+  "engines": {
+    "node": ">=0.12"
+  }
+}
