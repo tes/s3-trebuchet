@@ -1,8 +1,8 @@
 import S3rver from 's3rver';
 import express from 'express';
 import request from 'supertest';
-import initS3Trebuchet from '../lib/';
 import AWS from 'aws-sdk';
+import initS3Trebuchet from '../lib/';
 
 const s3rverConfiguration = {
   accessKeyId: 'S3RVER',
@@ -19,7 +19,10 @@ const app = express();
 const s3Trebuchet = initS3Trebuchet(s3rverConfiguration);
 app.put('/test-multipart-params', s3Trebuchet.multipartParamsHandler);
 app.put('/test-validate/:fileKey', s3Trebuchet.fileValidationHandler('fileKey'));
-app.get('/test-get-file/:fileKey', s3Trebuchet.goToTemporaryUrlForFileHandler('fileKey'));
+app.get(
+  '/test-get-file/:fileKey',
+  s3Trebuchet.goToTemporaryUrlForFileHandler('fileKey', 'fileName')
+);
 app.use((err, req, res, next) => {
   return res.status(err.output.statusCode).json(err.output.payload);
 });
