@@ -66,3 +66,16 @@ await fetch(`https://server/get-temporary-url/${fileKey}`, { method: 'PUT' });
 ```
 
 You can find an example inside the [example folder](example)
+
+### Configuration 
+
+`initS3Trebuchet(configuration)`
+
+
+| Option                         | Type                 | Default         | Description
+| ------------------------------ | -------------------- | --------------- | -----------
+| accessKeyId                    | `string`             |                 | (Required) s3 AccessKey
+| secretAccessKey                | `string`             |                 | (Required) s3 SecretAccessKey
+| bucket                         | `string`             |                 | (Required) s3 bucket name
+| maxFileSize                    | `number`             |                 | Acceptable content length upper limit
+| urlExpiryMilliseconds          | `number`             | 1800000         | Default signed urls expiration in ms
