@@ -1,14 +1,21 @@
 # s3-trebuchet
 
-> Tiny library to validate and get temporary urls for s3 uploads
+> Tiny express library to help with s3 uploads and downloads from the browser
 
-## Reasoning
+## Uploading
 
 To upload successfully to s3 from the browser, every request needs to come with a base64-encoded policy.
 
 The policy generation needs to happen on the server, as we don't want to leak S3 keys on the browser.
 
-This library exposes an express middleware, `multipartParamsHandler` that can be plugged on an express route to help generate this policy.
+s3-trebuchet exposes an express middleware that helps in generating this policy.
+
+## Downloading
+
+If you don't want to allow public access to your s3 bucket, you can allow downloads with temporary generate URLs.
+
+s3-trebuchet exposes an express middleware that helps in generating those temporary URLs.
+
 
 ## Install
 
@@ -18,7 +25,7 @@ npm install --save s3-trebuchet
 
 ## Usage
 
-### Configure the library
+### As an express middleware
 
 ```js
 const s3rverConfiguration = {
@@ -34,8 +41,8 @@ app.put('/generate-policy', s3Trebuchet.multipartParamsHandler);
 
 Then on the client:
 ```js
+const file = document.querySelector("#file").files[0];
 const params = fetch('/generate-policy'); 
-const formData = new FormData();
+//...
 ```
-
 
