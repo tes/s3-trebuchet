@@ -3,7 +3,9 @@ import { expect } from 'chai';
 import path from 'path';
 import superagent from 'superagent';
 import httpStatusCodes from 'http-status-codes';
-import { request, s3Client } from './environment';
+import enviroment from './environment';
+
+const { s3Client, request } = enviroment;
 
 describe('File upload', () => {
   it('should return multipart params', async () => {
@@ -41,7 +43,7 @@ describe('File upload', () => {
         headers: { location },
       } = await request.get(`/test-get-file/${fileKey}`).expect(httpStatusCodes.MOVED_TEMPORARILY);
       const res = await superagent(location);
-      console.log(res.statusCode);
+      expect(res.statusCode).to.equal(httpStatusCodes.OK);
     });
 
     it('should 404 for a non existing fileKey', async () => {

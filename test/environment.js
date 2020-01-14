@@ -2,7 +2,7 @@ import S3rver from 's3rver';
 import express from 'express';
 import request from 'supertest';
 import AWS from 'aws-sdk';
-import initS3Trebuchet from '../lib/';
+import initS3Trebuchet from '../lib';
 
 const s3rverConfiguration = {
   accessKeyId: 'S3RVER',
@@ -23,6 +23,7 @@ app.get(
   '/test-get-file/:fileKey',
   s3Trebuchet.goToTemporaryUrlForFileHandler('fileKey', 'fileName')
 );
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   return res.status(err.output.statusCode).json(err.output.payload);
 });
@@ -47,7 +48,7 @@ const s3Client = {
 };
 
 let s3rver;
-before(function(done) {
+before((done) => {
   s3rver = new S3rver({
     port: 4569,
     hostname: 'localhost',
@@ -57,7 +58,7 @@ before(function(done) {
   }).run(done);
 });
 
-after(function(done) {
+after((done) => {
   s3rver.close(done);
 });
 
