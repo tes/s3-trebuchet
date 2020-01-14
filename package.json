@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Tiny express library to help with s3 uploads and downloads initiated from the browser",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tes/s3-trebuchet.git"
+  },
   "scripts": {
     "test": "mocha ./test"
   },
