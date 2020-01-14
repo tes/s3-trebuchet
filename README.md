@@ -1,6 +1,6 @@
 # s3-trebuchet
 
-> Tiny express library to help with s3 uploads and downloads from the browser
+> Tiny express library to help with s3 uploads and downloads initiated from the browser
 
 ## Uploading
 
