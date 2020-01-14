@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/tes/s3-trebuchet.git"
   },
+  "keywords": [
+    "fetch", "s3", "aws", "upload", "signed urls"
+  ],
   "scripts": {
     "test": "mocha ./test"
   },
