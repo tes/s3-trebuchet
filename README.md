@@ -25,9 +25,10 @@ npm install --save s3-trebuchet
 
 ## Usage
 
-### As an express middleware
+### Using the express middleware
 
 ```js
+const initS3Trebuchet = require('s3-trebuchet');
 const s3rverConfiguration = {
   accessKeyId: 's3-access-key-id',
   secretAccessKey: 's3-secret-access-key',
@@ -36,13 +37,32 @@ const s3rverConfiguration = {
 };
 
 const s3Trebuchet = initS3Trebuchet(s3rverConfiguration);
-app.put('/generate-policy', s3Trebuchet.multipartParamsHandler);
+app.put('/get-multipart-params', s3Trebuchet.multipartParamsHandler);
+app.put('/validate/:fileKey', s3Trebuchet.fileValidationHandler('fileKey'));
+app.get('/temporary-url/:fileKey', s3Trebuchet.goToTemporaryUrlForFileHandler('fileKey', 'fileName'));
 ```
 
-Then on the client:
+### Client file upload:
+
 ```js
-const file = document.querySelector("#file").files[0];
-const params = fetch('/generate-policy'); 
-//...
+const file = document.getElementById('file').files[0]
+const response = await fetch('https://server/get-multipart-params', { method: 'PUT' });
+const multipartParams = await response.json()
+const formData = new FormData();
+Object.keys(multipartParams).forEach(key => formData.append(key, multipartParams[key]));
+formData.append("file", file);
+await fetch(`https://s3-server.aws/bucket/${file.name}`, { method: 'PUT', body: formData });
 ```
 
+### Client validate upload:
+
+```js
+await fetch(`https://server/validate/${fileKey}`, { method: 'PUT' });
+```
+### Client get temporary URL
+
+```js
+await fetch(`https://server/get-temporary-url/${fileKey}`, { method: 'PUT' });
+```
+
+You can find an example inside the [example folder](example)
