@@ -1,6 +1,6 @@
 {
   "name": "s3-trebuchet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tiny express library to help with s3 uploads and downloads initiated from the browser",
   "main": "lib/index.js",
   "repository": {
