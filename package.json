@@ -36,10 +36,9 @@
     "http-status-codes": "^1.4.0",
     "husky": "^4.0.7",
     "lint-staged": "^9.5.0",
-    "mocha": "^7.0.0",
+    "mocha": "^7.1.1",
     "prettier": "1.19.1",
     "s3rver": "^3.5.0",
-    "superagent": "^5.2.1",
     "supertest": "^4.0.2"
   },
   "dependencies": {
@@ -48,6 +47,7 @@
     "aws-sdk": "^2.598.0",
     "crypto": "^1.0.1",
     "debug": "^4.1.1",
+    "superagent": "^5.2.2",
     "uuid": "^3.3.3"
   },
   "engines": {

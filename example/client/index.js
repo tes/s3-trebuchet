@@ -1,16 +1,8 @@
 import express from 'express'; // eslint-disable-line import/no-extraneous-dependencies
 import path from 'path';
-import initS3Trebuchet from '../lib';
-import './fake-s3';
-
-const s3rverConfiguration = {
-  accessKeyId: 'S3RVER',
-  secretAccessKey: 'S3RVER',
-  bucket: 'test-bucket',
-  region: 'eu-west-1',
-  s3ForcePathStyle: true,
-  endpoint: 'http://localhost:4569',
-};
+import initS3Trebuchet from '../../lib';
+import s3rverConfiguration from '../config';
+import '../fake-s3';
 
 const app = express();
 const s3Trebuchet = initS3Trebuchet(s3rverConfiguration);
