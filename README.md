@@ -80,3 +80,4 @@ You can find an example inside the [example folder](example)
 | region                         | `string`             | eu-west-1       | s3 region 
 | maxFileSize                    | `number`             |                 | Acceptable content length upper limit
 | urlExpiryMilliseconds          | `number`             | 1800000         | Default signed urls expiration in ms
+| keyPrefix                      | `string`             |                 | Prepended string to the generated key uuid
